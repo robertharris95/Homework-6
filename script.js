@@ -1,14 +1,34 @@
 // Global Variables
 var searchBtn = $(".searchBtn")
 var newLocation = $(".newLocation")
+
 // on clicking the search button 
 searchBtn.on("click", function(e){
-    // search the api for the info we need 
+    e.preventDefault()
+    // create a new button 
+    var cityButton = $("<button>")
+    // button text becomes search query 
+    cityButton.text($("#searchBar").val());
+    // give button class of citybutton 
+    cityButton.addClass("citybutton btn btn-primary col align-self-end border border-white")
+    //append citybutton to searchbar
+    newLocation.append(cityButton);
+});
 
 
-
+$(".citybutton").on("click",function(e){
+    e.preventDefault();
+    var city = this.text
+    var queryurlCurrent = "api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123"
+    var queryurl5Day = "api.openweathermap.org/data/2.5/forecast?q="+ city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123"
+    
+    // search the api for the info we need for current day 
+    $.ajax({
+        url: queryurlCurrent,
+        method: "GET"
+    }).then(function(e){
     // then 
-
+    console.log(response)
     //create new row for card
     // create a card 
     // create a h4 tag 
@@ -31,8 +51,18 @@ searchBtn.on("click", function(e){
     //append UV tag to card
     //append card to new row
 
+})
+
+    // search the api for the info we need for 5 day 
+    $.ajax({
+        url: queryurl5Day,
+        method: "GET"
+    }).then({
+
+    // then 
+
     // create second row for 5 day forecast
-    
+
     //create 5 day forecast h4
         //h4 text is 5 Day Forecast
     //append h4 to row 
@@ -112,5 +142,5 @@ searchBtn.on("click", function(e){
     // append row 1 to newLocation div 
     // append row 2 to newLocation div 
 
-
+    })
 });
