@@ -11,8 +11,39 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <nav class="navbar sticky-top" >
+        <h1 class="navbar-text navbar-light" style="text-align: center"  >
+          Weather Dashboard
+        </h1>
+      </nav>
+      <br>
 
+<main class= "container">
+<div class= "row">
+    <div class="searchArea col-3">
+        <form>
+            <!-- For inputting search -->
+            <div class="form-group">
+              <label>
+                 <b>Search for a City</b>
+                </label>
+              <input type="search" class="form-control" id="searchBar" placeholder="Enter City Name">
+            <!-- Search button  -->
+            <br>
+            <button type="search" class="btn btn-secondary col align-self-end searchBtn">Search</button>
+            </div>
+             <!-- New Location Buttons go here -->
+            <br>
+            <div class="newLocation">
+
+            </div>
+        </form>
+    </div>
+    <div class= "resultsArea col-9">
+
+    </div>
+</div> 
+</main>
 
 
 
@@ -22,6 +53,8 @@
 			  src="https://code.jquery.com/jquery-3.4.1.js"
 			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
               crossorigin="anonymous"></script>
+<!-- moment.js  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- Personal script  -->
 <script src="script.js"></script>
 </body>
