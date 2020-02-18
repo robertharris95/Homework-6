@@ -18,10 +18,10 @@ searchBtn.on("click", function(e){
 
 $(".citybutton").on("click",function(event){
     event.preventDefault();
-    var city = this.text;
+    var city = $(".citybutton").text;
     var date = moment().format("MMM Do YYYY");
-    var queryurlCurrent = "api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123";
-    var queryurl5Day = "api.openweathermap.org/data/2.5/forecast?q="+ city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123";
+    var queryurlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123";
+    var queryurl5Day = "https://api.openweathermap.org/data/2.5/forecast?q="+ city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123";
 
     // search the api for the info we need for current day 
     $.ajax({
@@ -38,29 +38,40 @@ $(".citybutton").on("click",function(event){
     // create a h4 tag 
     var title = $("<h4>");
         // display the location and current date in the h4
-        title.text(city + " " + date);
+        title.text(city + " (" + date + ")");
         // create img tag for the Symbol
         var weathersymbol = $("<img>");
             //populate symbol with appropriate weather image based on data
-                weathersymbol.attr("src", );
+                weathersymbol.attr("src", response.weather.icon);
+                weathersymbol.attr("alt", "a symbol for today's weather");
             // append image into h4
             title.append(weathersymbol);
     //create a p tag for temp
     var temp = $("<p>");
         //fill text with temp data
-        temp.text();
+        temp.text(((((response.main.temp)-273.15)*1.8)+32)+ " F");
     //create a p tag for humidity
     var humidity = $("<p>")
         //fill text with humidity data
-        humidity.text();
+        humidity.text("Humidity: " + response.main.humidity);
     //create a p tag for wind speed
     var wind = $("<p>");
         //fill text with wind speed data
-        wind.text();
+        wind.text(response.wind.speed);
     //create a p tag for UV index  
     var UV = $("<p>");
+    
         //fill text with UV index data
-        UV.text();
+        var lon = response.city.coord.lon;
+        var lat = response.city.coord.lat;
+        var uvurl = "http://api.openweathermap.org/data/2.5/uvi/forecast?appid=2d91d7d9be19dd3bb1c0b154fb2ca123&lat="+lat+"&lon="+lon+"&cnt=1";
+        $.ajax({
+            url: uvurl,
+            method:"GET"
+        }).then(function(response){
+            UV.text(response.value);
+        })
+
     //append h4 tag to card
     newCard.append(title);
     //append temp tag to card
@@ -97,13 +108,14 @@ $(".citybutton").on("click",function(event){
         var dayonecard= $("<div>").addClass("card bg-primary text-white");
             // populate card with content 
                 // p of that day's date
-                var dateone= $("<p>").text();
+                var dateone= $("<p>").text(moment().add(1, 'days'));
                 // img of the weather symbol
-                var symbolone = $("<img>").attr("src",);
+                var symbolone = $("<img>").attr("src",response.weather.icon);
+                weathersymbol.attr("alt", "a symbol for today's weather");
                 // p of temp
-                var tempone= $("<p>").text();
+                var tempone= $("<p>").text(((((list[1].main.temp)-273.15)*1.8)+32)+ " F");
                 // p of humidity
-                var humidone= $("<p>").text();
+                var humidone= $("<p>").text("Humidity: " + list[1].main.humidity);
             // append date to card
             dayonecard.append(dateone);
             // append img to card
@@ -123,13 +135,14 @@ $(".citybutton").on("click",function(event){
         var daytwocard= $("<div>").addClass("card bg-primary text-white");
             // populate card with content 
               // p of that day's date
-              var datetwo= $("<p>").text();
+              var datetwo= $("<p>").text(moment().add(2, 'days'));
               // img of the weather symbol
-              var symboltwo = $("<img>").attr("src",);
+              var symboltwo = $("<img>").attr("src",response.weather.icon);
+              weathersymbol.attr("alt", "a symbol for today's weather");
               // p of temp
-              var temptwo= $("<p>").text();
+              var temptwo= $("<p>").text(((((list[2].main.temp)-273.15)*1.8)+32)+ " F");
               // p of humidity
-              var humidtwo= $("<p>").text();
+              var humidtwo= $("<p>").text("Humidity: " + list[2].main.humidity);
           // append date to card
           daytwocard.append(datetwo);
           // append img to card
@@ -149,13 +162,14 @@ $(".citybutton").on("click",function(event){
         var daythreecard= $("<div>").addClass("card bg-primary text-white");
             // populate card with content 
                 // p of that day's date
-                var datethree= $("<p>").text();
+                var datethree= $("<p>").text(moment().add(3, 'days'));
                 // img of the weather symbol
-                var symbolthree = $("<img>").attr("src",);
+                var symbolthree = $("<img>").attr("src",response.weather.icon);
+                weathersymbol.attr("alt", "a symbol for today's weather");
                 // p of temp
-                var tempthree= $("<p>").text();
+                var tempthree= $("<p>").text(((((list[3].main.temp)-273.15)*1.8)+32)+ " F");
                 // p of humidity
-                var humidthree= $("<p>").text();
+                var humidthree= $("<p>").text("Humidity: " + list[3].main.humidity);
             // append date to card
             daythreecard.append(datethree);
             // append img to card
@@ -175,13 +189,14 @@ $(".citybutton").on("click",function(event){
         var dayfourcard= $("<div>").addClass("card bg-primary text-white");
             // populate card with content 
                 // p of that day's date
-                var datefour= $("<p>").text();
+                var datefour= $("<p>").text(moment().add(4, 'days'));
                 // img of the weather symbol
-                var symbolfour = $("<img>").attr("src",);
+                var symbolfour = $("<img>").attr("src",response.weather.icon);
+                weathersymbol.attr("alt", "a symbol for today's weather");
                 // p of temp
-                var tempfour= $("<p>").text();
+                var tempfour= $("<p>").text(((((list[4].main.temp)-273.15)*1.8)+32)+ " F");
                 // p of humidity
-                var humidfour= $("<p>").text();
+                var humidfour= $("<p>").text("Humidity: " + list[4].main.humidity);
             // append date to card
             dayfourcard.append(datefour);
             // append img to card
@@ -201,13 +216,14 @@ $(".citybutton").on("click",function(event){
         var dayfivecard= $("<div>").addClass("card bg-primary text-white");
             // populate card with content 
                 // p of that day's date
-                var datefive= $("<p>").text();
+                var datefive= $("<p>").text(moment().add(5, 'days'));
                 // img of the weather symbol
-                var symbolfive = $("<img>").attr("src",);
+                var symbolfive = $("<img>").attr("src" ,response.weather.icon);
+                weathersymbol.attr("alt", "a symbol for today's weather");
                 // p of temp
-                var tempfive= $("<p>").text();
+                var tempfive= $("<p>").text(((((list[5].main.temp)-273.15)*1.8)+32)+ " F");
                 // p of humidity
-                var humidfive= $("<p>").text();
+                var humidfive= $("<p>").text("Humidity: " + list[5].main.humidity);
             // append date to card
             dayfivecard.append(datefive);
             // append img to card
