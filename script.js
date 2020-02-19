@@ -18,8 +18,8 @@ searchBtn.on("click", function(e){
 
 $(document).on("click", ".citybutton",function(event){
     event.preventDefault();
-    var city = $(".citybutton").text();
-    // console.log(city)
+    resultsArea.empty();
+    var city = $(this).text();
     var date = moment().format("MMM Do YYYY");
     var queryurlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123";
     var queryurl5Day = "https://api.openweathermap.org/data/2.5/forecast?q="+ city + "&appid=2d91d7d9be19dd3bb1c0b154fb2ca123";
@@ -31,7 +31,6 @@ $(document).on("click", ".citybutton",function(event){
     }).then(function(response){
         // console.log(response);
     // then 
-
     //create new row for card
     var newRow = $("<div>").addClass("row");
     // create a card 
@@ -248,4 +247,5 @@ $(document).on("click", ".citybutton",function(event){
     // append row 3 to resultsArea div 
     resultsArea.append(newRow3);
     });
+    
 });
